@@ -164,6 +164,18 @@ async function getVault() {
   vaultItems.value = (await Promise.all(responsePromises)) ?? []
 }
 
+async function remove(id: number) {
+  const confirm = window.confirm('Esta seguro')
+
+  if (!confirm) return
+
+  const response = await axios.delete(`/vault/${id}`)
+
+  if (response?.data) {
+    getVault().then()
+  }
+}
+
 onMounted(() => {
   getVault().then()
 })
@@ -242,6 +254,9 @@ onMounted(() => {
             <td>{{ value.username }}</td>
             <td style="word-break: break-all">{{ value.cipherText }}</td>
             <td style="word-break: break-all">{{ value.notesCipher }}</td>
+            <td>
+              <button @click="remove(value.id)">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
