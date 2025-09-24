@@ -136,7 +136,9 @@ async function submitVaultItem() {
 }
 
 async function getVault() {
-  const respuesta = await axios.get<VaultItemType[]>(`/vault/${userId}`)
+  const respuesta = await axios.get<VaultItemType[]>(`/vault/${userId}`, {
+    params: { algorithm: 'RSA-OAEP' },
+  })
 
   const privateKey = await getPrivateKey()
   if (!privateKey) {
@@ -168,6 +170,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <h1 style="text-align: center">Vista Cifrado Asimétrico</h1>
   <div class="flex">
     <strong>Llave Publica: </strong>
     <input

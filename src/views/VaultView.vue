@@ -109,7 +109,9 @@ type VaultItemType = {
 async function getVault() {
   const masterPassword = 'contraseñaMaestraDelUsuario'
 
-  const respuesta = await axios.get<VaultItemType[]>(`/vault/${userId}`)
+  const respuesta = await axios.get<VaultItemType[]>(`/vault/${userId}`, {
+    params: { algorithm: 'AES-GCM' },
+  })
 
   const salt = 'salt123'
   const key = await deriveMasterKey(masterPassword, salt)
@@ -138,6 +140,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <h1 style="text-align: center">Vista Cifrado Simétrico</h1>
   <div class="vault-form">
     <h2>Agregar nueva contraseña</h2>
     <form @submit.prevent="submitVaultItem">
