@@ -65,7 +65,7 @@ async function submitVaultItem() {
       username: username.value,
       cipherText,
       notesCipher,
-      algorithm: 'AES-256-GCM',
+      algorithm: 'AES-GCM',
     })
 
     getVault().then()
